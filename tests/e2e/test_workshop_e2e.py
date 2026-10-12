@@ -1,6 +1,5 @@
 import re
 from playwright.sync_api import expect
-
 def test_user_creates_car_in_browser(page, live_server):
     page.get_by_label("Make", exact=True).fill("Toyota")
     page.get_by_label("Model", exact=True).fill("Yaris")
