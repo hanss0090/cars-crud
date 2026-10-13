@@ -25,13 +25,13 @@ def test_user_edits_car_and_change_survives_reload(page, live_server):
     # 点击 Edit car 链接
     page.get_by_role("link", name="Edit car").click()
     
-    # 修改型号和年份
-    page.get_by_label("Model", exact=True).fill("Accord")
-    page.get_by_label("Year", exact=True).fill("2023")
+    # 修改型号和年份（使用更稳健的属性选择器确保能定位到输入框）
+    page.locator("input[name='model'], #model").fill("Accord")
+    page.locator("input[name='year'], #year").fill("2023")
     
-    # 尝试更稳妥的按钮匹配（支持 Update、Save 或 Save changes）
-    # 如果你的应用里按钮叫其他名字，可以改成对应的名字
-    page.get_by_role("button", name=re.compile("Save|Update|Submit", re.IGNORECASE)).click()
+    # 点击表单的提交按钮，并等待页面跳转回详情页
+    with page.expect_navigation():
+        page.locator("button[type='submit'], input[type='submit']").click()
     
     # 断言详情页标题为 Honda Accord
     expect(page.get_by_role("heading", name="Honda Accord")).to_be_visible()
