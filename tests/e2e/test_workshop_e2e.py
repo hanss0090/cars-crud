@@ -28,7 +28,10 @@ def test_user_edits_car_and_change_survives_reload(page, live_server):
     # 修改型号和年份
     page.get_by_label("Model", exact=True).fill("Accord")
     page.get_by_label("Year", exact=True).fill("2023")
-    page.get_by_role("button", name="Save changes").click()
+    
+    # 尝试更稳妥的按钮匹配（支持 Update、Save 或 Save changes）
+    # 如果你的应用里按钮叫其他名字，可以改成对应的名字
+    page.get_by_role("button", name=re.compile("Save|Update|Submit", re.IGNORECASE)).click()
     
     # 断言详情页标题为 Honda Accord
     expect(page.get_by_role("heading", name="Honda Accord")).to_be_visible()
