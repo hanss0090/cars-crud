@@ -14,7 +14,7 @@ from app.main import create_app
 
 
 def pytest_addoption(parser):
-    parser.addoption("--headed", action="store_true", help="Show the E2E browser window")
+    parser.addoption("--browser-headed", action="store_true", help="Show the E2E browser window")
 
 
 @pytest.fixture
