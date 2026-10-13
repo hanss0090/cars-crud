@@ -26,7 +26,6 @@ jobs:
           
       - name: Install Chromium and dependencies
         run: |
-          python -m playwright install chromium
           python -m playwright install --with-deps chromium
       
       - name: Run unit tests
@@ -37,3 +36,6 @@ jobs:
       
       - name: Run API tests
         run: python -m pytest tests/api -v
+
+      - name: Run E2E tests
+        run: python -m pytest tests/e2e -v
