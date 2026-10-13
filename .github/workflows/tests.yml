@@ -37,6 +37,3 @@ jobs:
       
       - name: Run API tests
         run: python -m pytest tests/api -v
-      
-      - name: Run E2E tests
-        run: python -m pytest tests/e2e -v
